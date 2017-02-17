@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minesweeper</title>
+    <link type="text/css" rel="stylesheet" href="style.css">
+    <script src="src/board.js"></script>
+    <script src="src/view.js"></script>
+    <script src="src/game.js"></script>
+
+</head>
+<body>
+    <h1>Flags left: <span class="flags-left"></span></h1>
+    <div class="game-container">
+
+    </div>
+    <div id="game-options">
+        <label>Rows</label><input type="number" id="numOfRows" value="10">
+        <label>Cols</label><input type="number" id="numOfCols" value="10">
+        <label>Bombs</label><input type="number" id="numOfBombs" value="9">
+    </div>
+    <button id="start-game">Start</button>
+    <div class="game-status">
+        <img src="img/good.png" class="good-status" hidden>
+        <img src="img/bad.png" class="bad-status" hidden>
+    </div>
+</body>
+<script>
+    function getOptions(){
+        var options = {};
+        options.rows = parseInt(document.querySelector('#numOfRows').value);
+        options.cols = parseInt(document.querySelector('#numOfCols').value);
+        options.numOfBombs = parseInt(document.querySelector('#numOfBombs').value);
+        return options;
+    }
+    new minesweeper.Game(getOptions()).init();
+    document.querySelector('#start-game').addEventListener('click', function(){
+        new minesweeper.Game(getOptions()).init();
+    });
+</script>
+</html>
