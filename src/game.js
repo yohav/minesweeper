@@ -38,8 +38,8 @@ var minesweeper = (function(minesweeper){
         that.attachLeftClickEvent = function(cell){
             cell.addEventListener('click', function(event){
                 var cellClicked = event.target;
-                var row = cellClicked.getAttribute('data-row');
-                var col = cellClicked.getAttribute('data-col');
+                var row = parseInt(cellClicked.getAttribute('data-row'));
+                var col = parseInt(cellClicked.getAttribute('data-col'));
                 var moveIsOk = that.board.onCellClick(row, col);
                 var isWinningMove = that.board.checkIfWon();
                 that.renderBoard();

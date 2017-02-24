@@ -89,14 +89,15 @@ var minesweeper = (function(minesweeper){
         };
 
         that.onCellClick = function(row, col){
-            that.board[row][col].isFlag = false;
-            that.board[row][col].isVisible = true;
+            var cell = that.board[row][col];
+            cell.isFlag = false;
+            cell.isVisible = true;
             that.numOfVisible++;
-            if(that.board[row][col].isBomb){
+            if(cell.isBomb){
                 that.showAll(true);
                 return false;
             }
-            if(that.board[row][col].number == ""){
+            if(cell.number === ""){
                 that.showMore(row, col);
                 return true;
             }
@@ -104,14 +105,15 @@ var minesweeper = (function(minesweeper){
         };
 
         that.onFlagClick = function(row, col){
-            if(!that.board[row][col].isFlag && that.getFlagsLeft() == 0){
+            var cell = that.board[row][col];
+            if(!cell.isFlag && that.getFlagsLeft() == 0){
                 return;
             }
-            that.board[row][col].isFlag = !that.board[row][col].isFlag;
-            that.board[row][col].isVisible = !that.board[row][col].isVisible;
-            that.board[row][col].isFlag ? that.numOfFlags++ : that.numOfFlags--;
-            if(that.board[row][col].isBomb){
-                if(that.board[row][col].isFlag){
+            cell.isFlag = !cell.isFlag;
+            cell.isVisible = !cell.isVisible;
+            cell.isFlag ? that.numOfFlags++ : that.numOfFlags--;
+            if(cell.isBomb){
+                if(cell.isFlag){
                     that.numOfCorrectFlags++;
                 } else {
                     that.numOfCorrectFlags--;
@@ -136,14 +138,9 @@ var minesweeper = (function(minesweeper){
                     if(i < 0 || j < 0 || i > that.options.rows - 1 || j > that.options.cols - 1){
                         continue;
                     }
-                    if(!that.board[i][j].isBomb){
-                        if(that.board[i][j].number && !that.board[i][j].isVisible){
-                            that.board[i][j].isVisible = true;
-                            that.numOfVisible++;
-                        }
-                        if(!that.board[i][j].isVisible){
-                            that.onCellClick(i ,j);
-                        }
+                    var cell = that.board[i][j];
+                    if(!cell.isVisible){
+                        that.onCellClick(i ,j);
                     }
                 }
             }
